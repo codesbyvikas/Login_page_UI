@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vikas_gdsc/auth_controller.dart';
 import 'package:vikas_gdsc/loginpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -15,6 +15,44 @@ class _CreateAccountState extends State<CreateAccount> {
   var _email = TextEditingController();
   var _password = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  bool isloading = false;
+
+  createUserWithEmailAndPassword() async {
+    try {
+      setState(() {
+        isloading = true;
+      });
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _email.text,
+        password: _password.text,
+      );
+      setState(() {
+        isloading = false;
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        isloading = true;
+      });
+      if (e.code == 'weak-password') {
+        return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Password is too weak!"),
+          ),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Account already exists with this emai!"),
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        isloading = false;
+      });
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -177,18 +215,21 @@ class _CreateAccountState extends State<CreateAccount> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50), color: Colors.black),
       child: TextButton(
-        child: const Text(
-          "Submit",
-          style: TextStyle(color: Colors.white, fontSize: 15),
-        ),
+        child: isloading
+            ? const Center(
+                child: CircularProgressIndicator(
+                color: Colors.white,
+              ))
+            : Text(
+                "Submit",
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
         onPressed: () {
-          // if (_formkey.currentState!.validate()) {
-          //   DataControllers.instance.registeredUser(
-          //       // controller.email.text.trim(), controller.password.text.trim());
-          //   )
-
-          AuthController.instance.Register(_email.text.trim(),
-              _password.text.trim, _name.text.trim(), _phone.text.trim());
+          createUserWithEmailAndPassword();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
         },
       ),
     );
@@ -203,7 +244,7 @@ class _CreateAccountState extends State<CreateAccount> {
             MaterialPageRoute(builder: (context) => const LoginPage()),
           );
         },
-        child: Text("Already have a account?"),
+        child: Text("Already have an account?"),
       ),
     );
   }

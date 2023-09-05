@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "851457720838",
-    "project_id": "gdscvikas",
-    "storage_bucket": "gdscvikas.appspot.com"
+    "project_number": "1030695981781",
+    "project_id": "djsce-app-task",
+    "storage_bucket": "djsce-app-task.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:851457720838:android:74622df50408e05468b987",
+        "mobilesdk_app_id": "1:1030695981781:android:1dbf901f4650721b33c85c",
         "android_client_info": {
           "package_name": "com.example.vikas_gdsc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "851457720838-h5bhoanvf2h7n9ls4u5r5l4uo2oj8t61.apps.googleusercontent.com",
+          "client_id": "1030695981781-n5m0s0011f7m78s84rto39e5bfsvh7dp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCZ7oE5SL2OVLYAj-fVx8idSeehbNAXZxw"
+          "current_key": "AIzaSyDTdORv0Szm0mgDvVYdNIpEUhk0P3qcrh0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "851457720838-h5bhoanvf2h7n9ls4u5r5l4uo2oj8t61.apps.googleusercontent.com",
+              "client_id": "1030695981781-n5m0s0011f7m78s84rto39e5bfsvh7dp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

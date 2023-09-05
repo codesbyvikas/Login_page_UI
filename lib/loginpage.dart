@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vikas_gdsc/createaccount.dart';
 import 'package:vikas_gdsc/homepage.dart';
@@ -12,8 +13,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String name = "";
   bool changeButton = false;
+  bool _isloading = false;
   final _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
+  final TextEditingController _loginemail = TextEditingController();
+  final TextEditingController _loginpassword = TextEditingController();
 
   moveToHome(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
@@ -21,13 +25,55 @@ class _LoginPageState extends State<LoginPage> {
         changeButton = true;
       });
       await Future.delayed(const Duration(seconds: 1));
-      await Navigator.of(context).push(
-        MaterialPageRoute(builder: (BuildContext context) => const HomePage()),
-      );
+      if (mounted) {
+        await Navigator.of(context).push(
+          MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+        );
+      }
 
       setState(() {
         changeButton = false;
       });
+    }
+  }
+
+  signInWithEmailAndPassword() async {
+    try {
+      setState(() {
+        _isloading = true;
+      });
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _loginemail.text,
+        password: _loginpassword.text,
+      );
+      setState(() {
+        _isloading = false;
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        _isloading = false;
+      });
+      if (e.code == 'user-not-found') {
+        if (mounted) {
+          return ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              backgroundColor: Colors.black,
+              content: Text(
+                "Incorrect Email!",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          );
+        }
+      } else if (e.code == 'wrong-password') {
+        if (mounted) {
+          return ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Incorrect Password!"),
+            ),
+          );
+        }
+      }
     }
   }
 
@@ -65,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       const SizedBox(height: 15),
                       TextFormField(
+                        controller: _loginemail,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -92,6 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       const SizedBox(height: 50),
                       TextFormField(
+                          controller: _loginpassword,
                           obscureText: _isObscure,
                           maxLength: 20,
                           decoration: InputDecoration(
@@ -127,13 +175,22 @@ class _LoginPageState extends State<LoginPage> {
                           }),
                       const SizedBox(height: 20),
                       TextButton(
-                        child: Text("Login"),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            signInWithEmailAndPassword();
+                          }
+                        },
+                        child: _isloading
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ))
+                            : Text("Login"),
                         style: TextButton.styleFrom(
                             fixedSize: const Size(500, 30),
                             foregroundColor: Colors.white,
                             backgroundColor: Colors.purple,
                             textStyle: const TextStyle(fontSize: 15)),
-                        onPressed: () => moveToHome(context),
                       ),
                       TextButton(
                         onPressed: () {
@@ -143,12 +200,8 @@ class _LoginPageState extends State<LoginPage> {
                                 builder: (context) => const CreateAccount()),
                           );
                         },
-                        child: Text(
-                          "create a account",
-                          style: TextStyle(
-                              color: Colors.black,
-                              backgroundColor:
-                                  Color.fromARGB(255, 235, 224, 224)),
+                        child: const Text(
+                          "Create an account",
                         ),
                       )
                     ],

@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,42 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC8onMRJs4VTAkWtlx4-NEyyhWUU7ryDvc',
-    appId: '1:282121006227:web:e84db9443a819684cc3166',
-    messagingSenderId: '282121006227',
-    projectId: 'gdsc-vikas',
-    authDomain: 'gdsc-vikas.firebaseapp.com',
-    storageBucket: 'gdsc-vikas.appspot.com',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDsxNh_PC091fojfo8nSyZeyB3k0ZBpOFw',
-    appId: '1:282121006227:android:6ca437652aa9eef5cc3166',
-    messagingSenderId: '282121006227',
-    projectId: 'gdsc-vikas',
-    storageBucket: 'gdsc-vikas.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAy-9s_BbQ6sba_b1DiSiK3eY5jTIIfYWI',
-    appId: '1:282121006227:ios:e8c2bb40b90ea7c6cc3166',
-    messagingSenderId: '282121006227',
-    projectId: 'gdsc-vikas',
-    storageBucket: 'gdsc-vikas.appspot.com',
-    iosClientId:
-        '282121006227-tp9optu4ldf2r5d0ri9spjnskth9hkmm.apps.googleusercontent.com',
-    iosBundleId: 'com.example.vikasGdsc',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAy-9s_BbQ6sba_b1DiSiK3eY5jTIIfYWI',
-    appId: '1:282121006227:ios:9530d5527b01944ecc3166',
-    messagingSenderId: '282121006227',
-    projectId: 'gdsc-vikas',
-    storageBucket: 'gdsc-vikas.appspot.com',
-    iosClientId:
-        '282121006227-guttpsqirdgrklg6iupgblfkmr5s7t6b.apps.googleusercontent.com',
-    iosBundleId: 'com.example.vikasGdsc.RunnerTests',
+    apiKey: 'AIzaSyDTdORv0Szm0mgDvVYdNIpEUhk0P3qcrh0',
+    appId: '1:1030695981781:android:1dbf901f4650721b33c85c',
+    messagingSenderId: '1030695981781',
+    projectId: 'djsce-app-task',
+    storageBucket: 'djsce-app-task.appspot.com',
   );
 }
