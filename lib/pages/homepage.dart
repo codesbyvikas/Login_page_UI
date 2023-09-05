@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:vikas_gdsc/loginpage.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vikas_gdsc/loginpage.dart';
+import 'package:vikas_gdsc/pages/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class CreateAccount extends StatefulWidget {

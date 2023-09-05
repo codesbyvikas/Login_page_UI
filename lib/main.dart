@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vikas_gdsc/auth_page.dart';
-import 'package:vikas_gdsc/firebase_options.dart';
+import 'package:vikas_gdsc/firebaseStuff/auth_page.dart';
+import 'package:vikas_gdsc/firebaseStuff/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
