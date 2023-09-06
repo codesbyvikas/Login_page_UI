@@ -55,21 +55,27 @@ class _LoginPageState extends State<LoginPage> {
       });
       if (e.code == 'user-not-found') {
         if (mounted) {
-          return ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.black,
-              content: Text(
-                "Incorrect Email!",
-                style: TextStyle(color: Colors.white),
+          return Future.delayed(Duration.zero, () async {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.black,
+                content: Text(
+                  "Incorrect Email!",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-            ),
-          );
+            );
+          });
         }
       } else if (e.code == 'wrong-password') {
         if (mounted) {
-          return ScaffoldMessenger.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text("Incorrect Password!"),
+              backgroundColor: Colors.black,
+              content: Text(
+                "Incorrect Password!",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           );
         }
@@ -95,12 +101,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const Text("Welcome  to the App Dev",
                     style: TextStyle(
-                      color: Color.fromARGB(255, 130, 121, 121),
+                      color: Color.fromARGB(255, 101, 101, 101),
                       fontSize: 22,
                     )),
                 const Text("Login here",
                     style: TextStyle(
-                      color: Color.fromARGB(255, 130, 121, 121),
+                      color: Color.fromARGB(255, 101, 101, 101),
                       fontSize: 22,
                     )),
                 const SizedBox(height: 30),
@@ -178,6 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             signInWithEmailAndPassword();
+                            
                           }
                         },
                         child: _isloading

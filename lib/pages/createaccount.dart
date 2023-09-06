@@ -40,11 +40,16 @@ class _CreateAccountState extends State<CreateAccount> {
           ),
         );
       } else if (e.code == 'email-already-in-use') {
-        return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Account already exists with this emai!"),
-          ),
-        );
+        setState(() {
+          isloading = false;
+        });
+        return Future.delayed(Duration.zero, () async {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Account already exists with this emai!"),
+            ),
+          );
+        });
       }
     } catch (e) {
       setState(() {
@@ -226,10 +231,6 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
         onPressed: () {
           createUserWithEmailAndPassword();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginPage()),
-          );
         },
       ),
     );
