@@ -1,6 +1,8 @@
+import 'package:Login_UI/pages/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:vikas_gdsc/pages/loginpage.dart';
+import 'package:Login_UI/pages/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -55,8 +57,31 @@ class _CreateAccountState extends State<CreateAccount> {
       setState(() {
         isloading = false;
       });
-      print(e);
     }
+    FirebaseAuth.instance.signOut();
+
+    showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+                title: const Text("Success"),
+                content: const Text("Account created successfully"),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Container(
+                      color: Colors.green,
+                      padding: const EdgeInsets.all(14),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ]));
   }
 
   @override
@@ -99,7 +124,7 @@ class _CreateAccountState extends State<CreateAccount> {
       decoration: const BoxDecoration(
           image: DecorationImage(
         image: AssetImage(
-          "assets/images/gdsc.png",
+          "assets/images/login.jpg",
         ),
         fit: BoxFit.fill,
       )),
@@ -225,7 +250,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 child: CircularProgressIndicator(
                 color: Colors.white,
               ))
-            : Text(
+            : const Text(
                 "Submit",
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
@@ -245,7 +270,7 @@ class _CreateAccountState extends State<CreateAccount> {
             MaterialPageRoute(builder: (context) => const LoginPage()),
           );
         },
-        child: Text("Already have an account?"),
+        child: const Text("Already have an account?"),
       ),
     );
   }

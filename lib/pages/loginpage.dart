@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vikas_gdsc/pages/createaccount.dart';
-import 'package:vikas_gdsc/pages/homepage.dart';
+import 'package:Login_UI/pages/createaccount.dart';
+import 'package:Login_UI/pages/homepage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -92,23 +92,24 @@ class _LoginPageState extends State<LoginPage> {
             key: _formKey,
             child: Column(
               children: [
-                const SizedBox(
-                  height: 50,
-                ),
                 Image.asset(
-                  "assets/images/gdsc_logo.png",
-                  fit: BoxFit.cover,
+                  "assets/images/login.jpg",
+                  height: 200,
                 ),
-                const Text("Welcome  to the App Dev",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 101, 101, 101),
-                      fontSize: 22,
-                    )),
-                const Text("Login here",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 101, 101, 101),
-                      fontSize: 22,
-                    )),
+                const Text(
+                  "Welcome to the App Dev",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 101, 101, 101),
+                    fontSize: 22,
+                  ),
+                ),
+                const Text(
+                  "Login here",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 101, 101, 101),
+                    fontSize: 22,
+                  ),
+                ),
                 const SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -120,9 +121,10 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _loginemail,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Colors.teal,
-                          )),
+                            borderSide: BorderSide(
+                              color: Colors.teal,
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.orange, width: 2)),
@@ -150,9 +152,10 @@ class _LoginPageState extends State<LoginPage> {
                           maxLength: 20,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                              color: Colors.teal,
-                            )),
+                              borderSide: BorderSide(
+                                color: Colors.teal,
+                              ),
+                            ),
                             focusedBorder: const OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.orange, width: 2)),
@@ -184,7 +187,6 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             signInWithEmailAndPassword();
-                            
                           }
                         },
                         child: _isloading
