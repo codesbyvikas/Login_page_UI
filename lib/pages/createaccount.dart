@@ -59,29 +59,7 @@ class _CreateAccountState extends State<CreateAccount> {
       });
     }
     FirebaseAuth.instance.signOut();
-
-    showDialog(
-        context: context,
-        builder: (ctx) => AlertDialog(
-                title: const Text("Success"),
-                content: const Text("Account created successfully"),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: Container(
-                      color: Colors.green,
-                      padding: const EdgeInsets.all(14),
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ]));
+    Navigator.pop(context);
   }
 
   @override
